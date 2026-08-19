@@ -7,8 +7,8 @@
   "main": "electron/main.cjs",
   "workspaces": ["client", "server"],
   "scripts": {
-    "dev": "concurrently -k -n server,client -c cyan,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
-    "dev:desktop": "concurrently -k -n client,electron -c magenta,yellow \"npm run dev -w client\" \"wait-on tcp:5173 && electron .\"",
+    "dev": "node scripts/dev.mjs",
+    "dev:desktop": "node scripts/dev.mjs --electron",
     "build": "npm run build -w client",
     "start": "npm run start -w server",
     "test": "npm run test -w server",
@@ -17,10 +17,8 @@
     "package:linux": "npm run build && electron-builder --linux"
   },
   "devDependencies": {
-    "concurrently": "^9.2.0",
-    "electron": "^37.2.0",
-    "electron-builder": "^26.0.12",
-    "wait-on": "^8.0.4"
+    "electron": "^43.4.1",
+    "electron-builder": "^26.0.12"
   },
   "build": {
     "appId": "org.foillattice.studio",

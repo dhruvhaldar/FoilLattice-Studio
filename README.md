@@ -22,6 +22,20 @@ engine through the JSON/SSE API.
 - Local project persistence and desktop-aware API configuration
 - Windows and Linux Electron packaging configuration
 
+## Dependency policy
+
+The application intentionally keeps only the architectural dependencies:
+
+- React and React DOM for the client
+- Vite and its React plugin for development/building
+- Express for the execution API
+- Electron and electron-builder for desktop distribution
+
+Charts, form primitives, responsive layout, icons, CORS handling, process
+coordination, and port readiness checks are implemented locally with browser or
+Node.js platform APIs. This avoids Bootstrap, Plotly, Font Awesome, Axios,
+Concurrently, Wait-on, and standalone CORS packages.
+
 ## Quick start
 
 Node.js 20 or newer is recommended.
@@ -46,8 +60,8 @@ npm test
 npm run build
 ```
 
-The repository also includes `pnpm-workspace.yaml`, so equivalent `pnpm`
-commands can be used.
+This repository uses npm workspaces and commits `package-lock.json`. Avoid mixing
+pnpm or Yarn installs into the same `node_modules` tree.
 
 ## Native binaries
 

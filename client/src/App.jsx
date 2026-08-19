@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Button, Dropdown, ProgressBar } from 'react-bootstrap';
+import { Button, Dropdown, ProgressBar } from './ui/primitives.jsx';
 import AirfoilForm from './components/AirfoilForm.jsx';
 import AircraftBuilder from './components/AircraftBuilder.jsx';
 import ResultsPlot from './components/ResultsPlot.jsx';

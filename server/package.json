@@ -8,9 +8,5 @@
     "start": "node index.js",
     "test": "node --test"
   },
-  "dependencies": {
-    "cors": "^2.8.5",
-    "express": "^5.1.0"
-  }
+  "dependencies": { "express": "^5.1.0" }
 }
-

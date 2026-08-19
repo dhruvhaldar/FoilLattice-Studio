@@ -1,11 +1,58 @@
+# Dependency installations
 node_modules/
-.pnpm-store/
+
+# Frontend and desktop build output
+client/dist/
 dist/
 release/
+out/
+
+# Tool caches
 .vite/
+.cache/
+.electron/
+.electron-builder-cache/
+coverage/
+
+# Runtime and solver scratch data
+server/work/
+.runs/
+tmp/
+temp/
+*.tmp
+*.pid
+
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files and signing credentials
 .env
 .env.*
 !.env.example
-server/work/
-coverage/
+*.p12
+*.pfx
+
+# Native solver executables are supplied or downloaded per platform.
+# Keep documentation, checksums, and license notices in Git.
+binaries/win32/*
+binaries/linux/*
+!binaries/**/.gitkeep
+!binaries/**/README.md
+!binaries/**/LICENSE*
+!binaries/**/SHA256SUMS
+
+# Editor and operating-system metadata
+.idea/
+.vscode/
+*.suo
+*.user
+*.swp
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
