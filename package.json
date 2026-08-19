@@ -1,0 +1,35 @@
+{
+  "name": "foil-lattice-studio",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Cross-platform XFOIL and AVL analysis studio",
+  "license": "GPL-3.0-only",
+  "main": "electron/main.cjs",
+  "workspaces": ["client", "server"],
+  "scripts": {
+    "dev": "concurrently -k -n server,client -c cyan,magenta \"npm run dev -w server\" \"npm run dev -w client\"",
+    "dev:desktop": "concurrently -k -n client,electron -c magenta,yellow \"npm run dev -w client\" \"wait-on tcp:5173 && electron .\"",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "test": "npm run test -w server",
+    "package": "npm run build && electron-builder",
+    "package:win": "npm run build && electron-builder --win",
+    "package:linux": "npm run build && electron-builder --linux"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.0",
+    "electron": "^37.2.0",
+    "electron-builder": "^26.0.12",
+    "wait-on": "^8.0.4"
+  },
+  "build": {
+    "appId": "org.foillattice.studio",
+    "productName": "FoilLattice Studio",
+    "directories": { "output": "release" },
+    "files": ["electron/**/*", "server/**/*", "client/dist/**/*", "package.json", "LICENSE"],
+    "extraResources": [{ "from": "binaries/${os}", "to": "binaries", "filter": ["**/*"] }],
+    "asarUnpack": ["server/**/*"],
+    "win": { "target": "nsis" },
+    "linux": { "target": ["AppImage", "deb"], "category": "Science" }
+  }
+}

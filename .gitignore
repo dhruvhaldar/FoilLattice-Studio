@@ -1,0 +1,11 @@
+node_modules/
+.pnpm-store/
+dist/
+release/
+.vite/
+*.log
+.env
+.env.*
+!.env.example
+server/work/
+coverage/
