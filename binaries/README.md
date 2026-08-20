@@ -1,6 +1,6 @@
 # Native solver binaries
 
-This directory is only a fallback for running the Express engine without
+This directory is only a fallback for running the Fastify engine without
 Electron. Place GPL-compatible development solver builds here if needed:
 
 - `win32/xfoil.exe` and `win32/avl.exe`

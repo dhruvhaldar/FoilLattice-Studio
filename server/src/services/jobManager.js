@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 
 const jobs = new Map();
 const moduleDirectory = path.dirname(fileURLToPath(import.meta.url));
-const binaryRoot = process.env.BINARY_ROOT || path.resolve(moduleDirectory, '..', '..', '..', 'binaries', process.platform);
+const binaryRoot = process.env.SOLVER_DATA_DIR || process.env.BINARY_ROOT || path.resolve(moduleDirectory, '..', '..', '..', 'binaries', process.platform);
 const binaryPath = (solver) => path.join(binaryRoot, `${solver}${process.platform === 'win32' ? '.exe' : ''}`);
 
 class JobManager {
