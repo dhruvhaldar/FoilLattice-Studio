@@ -1,4 +1,4 @@
-import { Button, Card, Col, Form, Row } from '../ui/primitives.jsx';
+import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 
 const Field = ({ label, value, onChange, ...props }) => <Form.Group className="mb-3"><Form.Label>{label}</Form.Label><Form.Control value={value} onChange={(event) => onChange(event.target.value)} {...props} /></Form.Group>;
 

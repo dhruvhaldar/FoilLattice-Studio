@@ -24,17 +24,18 @@ engine through the JSON/SSE API.
 
 ## Dependency policy
 
-The application intentionally keeps only the architectural dependencies:
+The application keeps its UI dependencies deliberate and offline-capable:
 
-- React and React DOM for the client
+- React, React DOM, React-Bootstrap, and Bootstrap for the client
+- Font Awesome Free for consistent interface icons
+- Self-hosted Geist Sans and Geist Mono variable fonts from Fontsource
 - Vite and its React plugin for development/building
 - Express for the execution API
 - Electron and electron-builder for desktop distribution
 
-Charts, form primitives, responsive layout, icons, CORS handling, process
-coordination, and port readiness checks are implemented locally with browser or
-Node.js platform APIs. This avoids Bootstrap, Plotly, Font Awesome, Axios,
-Concurrently, Wait-on, and standalone CORS packages.
+Charts remain a lightweight native SVG implementation. CORS handling, process
+coordination, and port readiness checks use Node.js platform APIs, avoiding
+Plotly, Axios, Concurrently, Wait-on, and standalone CORS packages.
 
 ## Quick start
 
@@ -65,7 +66,37 @@ pnpm or Yarn installs into the same `node_modules` tree.
 
 ## Native binaries
 
-Supply executable builds at these paths:
+Both deployments keep solvers outside the frontend bundle. Electron uses the
+per-user app-data `solvers/active` directory; the web deployment uses the
+execution engine's `BINARY_ROOT`. On startup the same React dialog checks the
+active engine and opens when AVL or XFOIL is missing or outdated.
+Users can either:
+
+- download the supported official Windows build with SHA-256 verification; or
+- choose an executable they compiled or obtained themselves. In a browser this
+  uploads the selected file to the execution engine.
+
+The **Solvers** button reopens the manager at any time. The installed version,
+origin, checksum, and installation time are recorded in `installed.json` beside
+the managed binaries. The application currently supports automatic downloads of
+AVL 3.52 and XFOIL 6.99 on Windows. Linux builds remain user-provided because the
+official current distributions are source packages requiring a local toolchain.
+
+Solver metadata lives in `config/solver-catalog.json`, not in React code. The
+manager checks the repository's raw catalog URL at startup, caches the last valid
+catalog, and retains the bundled catalog as an offline fallback. Set
+`SOLVER_CATALOG_URL` to override that endpoint with another HTTPS catalog. This
+allows supported versions, URLs, and checksums to be updated independently of the
+frontend.
+
+The web engine downloads releases server-side and activates them atomically in
+`BINARY_ROOT`; the browser never attempts to execute a native binary. Set
+`ENABLE_SOLVER_MANAGEMENT=false` for an immutable deployment. Because executable
+upload and activation are privileged operations, protect these routes with
+authentication and authorization at the gateway before exposing the engine.
+
+You can also supply executables directly through `BINARY_ROOT` or these
+development paths:
 
 ```text
 binaries/win32/xfoil.exe
@@ -76,7 +107,7 @@ binaries/linux/avl
 
 Linux files must have executable permission. Set `ALLOW_DEMO=false` in a
 production engine to fail jobs when a native binary is missing instead of using
-the preview model. `BINARY_ROOT` can override the platform directory.
+the preview model.
 
 The binary redistribution terms, source-offer obligations, and notices must be
 reviewed for the exact solver builds included in a release. This repository is
@@ -84,6 +115,12 @@ GPL-3.0-only; adding a binary is a release/compliance decision, not just a build
 step.
 
 ## API
+
+The execution engine uses Fastify. It fits this boundary well because route
+parameters and future configuration contracts can use built-in JSON Schema,
+tests can exercise routes through native request injection, and JSON parsing is
+included without middleware. SSE output intentionally drops to Fastify's raw
+Node response after `reply.hijack()`, preserving the existing real-time stream.
 
 | Method | Endpoint | Purpose |
 | --- | --- | --- |
@@ -93,21 +130,27 @@ step.
 | `GET` | `/api/jobs/:id` | Read job status and final result |
 | `GET` | `/api/jobs/:id/events` | Stream status, stdout, and result events |
 | `DELETE` | `/api/jobs/:id` | Cancel a running job |
+| `GET` | `/api/solvers` | Installed and supported solver versions |
+| `GET` | `/api/solvers/events` | Stream install progress |
+| `POST` | `/api/solvers/:solver/download` | Download and activate the catalog release |
+| `POST` | `/api/solvers/:solver/provide` | Upload and activate a custom executable |
 
 For a hosted web client, set `VITE_API_BASE_URL` to the HTTPS engine URL at build
 time. Place the engine behind authentication, TLS, rate limits, request limits,
 and a container/process sandbox before exposing it publicly.
 
 Build the execution-engine container from the repository root with
-`docker build -f server/Dockerfile .`. The base image starts in preview mode;
-mount Linux solver binaries at `/app/binaries` and set `ALLOW_DEMO=false` for a
-native deployment.
+`docker build -f server/Dockerfile .`. Mount a persistent volume at
+`/app/binaries` so installed solvers survive container replacement. The base
+image starts in preview mode; set `ALLOW_DEMO=false` for a native-only
+deployment. Official Linux distributions are source packages, so the web dialog
+offers upload rather than automatic compilation.
 
 ## Structure
 
 ```text
 client/       React + Vite dashboard
-server/       Express execution engine, generators, parsers, and tests
+server/       Fastify execution engine, generators, parsers, and tests
 electron/     Secure Electron main process and preload bridge
 binaries/     Platform-specific native solver assets (not included)
 ```

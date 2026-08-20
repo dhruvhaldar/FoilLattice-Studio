@@ -1,4 +1,4 @@
-import { Form, Row, Col, Card } from '../ui/primitives.jsx';
+import { Form, Row, Col, Card } from 'react-bootstrap';
 
 const Field = ({ label, value, onChange, ...props }) => (
   <Form.Group className="mb-3">

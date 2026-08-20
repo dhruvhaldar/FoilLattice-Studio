@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "catalogVersion": "2026-08-20",
+  "remoteCatalogUrl": "https://raw.githubusercontent.com/dhruvhaldar/FoilLattice-Studio/main/config/solver-catalog.json",
+  "vendor": "MIT AVL/XFOIL distribution pages",
+  "solvers": {
+    "avl": {
+      "name": "AVL",
+      "description": "Three-dimensional vortex-lattice and stability analysis",
+      "homepage": "https://web.mit.edu/drela/Public/web/avl/",
+      "platforms": {
+        "win32-x64": {
+          "version": "3.52",
+          "url": "https://web.mit.edu/drela/Public/web/avl/avl352.exe",
+          "format": "executable",
+          "executableName": "avl.exe",
+          "sha256": "443520D255408491222A8DF9060BD000F78DA95A68845A2F6EFDBC67E203F07A",
+          "sourceUrl": "https://web.mit.edu/drela/Public/web/avl/avl3.52.tgz"
+        },
+        "linux-x64": {
+          "version": "3.52",
+          "format": "manual",
+          "executableName": "avl",
+          "sourceUrl": "https://web.mit.edu/drela/Public/web/avl/avl3.52.tgz"
+        }
+      }
+    },
+    "xfoil": {
+      "name": "XFOIL",
+      "description": "Two-dimensional viscous airfoil analysis",
+      "homepage": "https://web.mit.edu/drela/Public/web/xfoil/",
+      "platforms": {
+        "win32-x64": {
+          "version": "6.99",
+          "url": "https://web.mit.edu/drela/Public/web/xfoil/XFOIL6.99.zip",
+          "format": "zip",
+          "archiveEntry": "xfoil.exe",
+          "executableName": "xfoil.exe",
+          "sha256": "E13E8FE5CC38D8AC2626E9D3B17643BDCFAA63791619F042AFDAA7CD103BCB08",
+          "sourceUrl": "https://web.mit.edu/drela/Public/web/xfoil/xfoil6.97.tar.gz",
+          "optionalPlotterUrl": "https://web.mit.edu/drela/Public/web/xfoil/Pplot.zip"
+        },
+        "linux-x64": {
+          "version": "6.996",
+          "format": "manual",
+          "executableName": "xfoil",
+          "sourceUrl": "https://web.mit.edu/drela/Public/web/xfoil/xfoil6.996.tgz"
+        }
+      }
+    }
+  }
+}

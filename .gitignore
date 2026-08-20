@@ -38,6 +38,10 @@ pnpm-debug.log*
 
 # Native solver executables are supplied or downloaded per platform.
 # Keep documentation, checksums, and license notices in Git.
+binaries/*.exe
+binaries/*.zip
+binaries/*.tgz
+binaries/*.tar.gz
 binaries/win32/*
 binaries/linux/*
 !binaries/**/.gitkeep
@@ -55,4 +59,3 @@ binaries/linux/*
 .DS_Store
 Thumbs.db
 Desktop.ini
-

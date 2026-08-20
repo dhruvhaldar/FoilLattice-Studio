@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Button, Card, Table } from '../ui/primitives.jsx';
+import { Button, Card, Table } from 'react-bootstrap';
 
 const colors = ['#48d8c5', '#ffba63', '#6ea8fe', '#d889ff', '#ff718b'];
 const metrics = {

@@ -1,4 +1,4 @@
-const API_BASE = window.foilLattice?.apiBaseUrl || import.meta.env.VITE_API_BASE_URL || '/api';
+export const API_BASE = window.foilLattice?.apiBaseUrl || import.meta.env.VITE_API_BASE_URL || '/api';
 
 export async function health() {
   const response = await fetch(`${API_BASE}/health`);
