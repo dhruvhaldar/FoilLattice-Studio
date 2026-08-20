@@ -21,8 +21,26 @@ interface with a remote execution engine for browser access.
 > model so you can explore the interface. Preview results are clearly labelled
 > and are **not valid aerodynamic analysis results**.
 
+## Screenshots
+
+<p align="center">
+  <a href="screenshots/Screenshot_20-8-2026_162847_localhost.jpeg">
+    <img src="screenshots/Screenshot_20-8-2026_162847_localhost.jpeg" width="49%" alt="FoilLattice Studio XFOIL airfoil analysis workspace showing NACA geometry controls, a lift curve, results table, and live solver terminal">
+  </a>
+  <a href="screenshots/Screenshot_20-8-2026_162956_localhost.jpeg">
+    <img src="screenshots/Screenshot_20-8-2026_162956_localhost.jpeg" width="49%" alt="FoilLattice Studio AVL aircraft analysis workspace showing the planform builder, aerodynamic efficiency plot, results table, and live solver terminal">
+  </a>
+</p>
+
+<p align="center">
+  <sub><strong>XFOIL airfoil workspace</strong> — polar configuration and interactive results &nbsp;·&nbsp; <strong>AVL aircraft workspace</strong> — geometry builder and stability analysis</sub>
+</p>
+
+Click either screenshot to open the full-resolution interface.
+
 ## Contents
 
+- [Screenshots](#screenshots)
 - [What you can do](#what-you-can-do)
 - [Quick start](#quick-start)
 - [Installing AVL and XFOIL](#installing-avl-and-xfoil)
